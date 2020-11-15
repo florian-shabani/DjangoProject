@@ -1,4 +1,7 @@
-{% extends 'blog/base.html' %} {%block content%} {%for post in posts%}
+{% extends 'blog/base.html' %} {%block content%} 
+
+<h2 class='article-title mb-4'>{{view.kwargs.username}} has ({{page_obj.paginator.count}}) Posts</h2>
+{%for post in posts%}
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
@@ -6,7 +9,7 @@
         class="rounded-circle account-img float-left"
         src="{{ post.author.profile.image.url }} "
       />
-      <a class="mr-2" href={% url 'user-posts'  post.author.username %}>{{ post.author }}</a>
+      <a class="mr-2" href={% url 'user-profile'%}>{{ post.author }}</a>
       <small class="text-muted">{{ post.date_posted |date:"F d, Y" }}</small>
     </div>
     <h2><a class="article-title" href={% url 'post-detail' post.id %}>{{ post.title }}</a></h2>
@@ -30,8 +33,6 @@
   <a class="btn btn-outline-info mb-4" href='?page={{page_obj.next_page_number}}'>Next</a>
   <a class="btn btn-outline-info mb-4" href='?page={{page_obj.paginator.num_pages}}'>Last</a>
   {% endif %}
-  {% comment %} {% if page_obj.last_page_number%}
-  <a class="btn btn-outline-info mb-4" href='?page=1'>First</a>
-  {%endif%} {% endcomment %}
+  
 {% endif %}
  {% endblock content%}
